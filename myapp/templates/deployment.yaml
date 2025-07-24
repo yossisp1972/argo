@@ -22,12 +22,12 @@ spec:
           ports:
           - containerPort: 80
           env:
-            - name: USERNAME
+          - name: USERNAME
               valueFrom:
                 secretKeyRef:
                   name: my-secret
                   key: username
-            - name: PASSWORD
+          - name: PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: my-secret
