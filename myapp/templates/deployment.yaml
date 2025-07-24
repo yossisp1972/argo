@@ -21,14 +21,14 @@ spec:
               cpu: "{{ .Values.resources.limits.cpu }}"
           ports:
           - containerPort: 80
-          env:
-          - name: USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: username
-          - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: password
+            env:
+            - name: USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: my-secret
+                    key: username
+            - name: PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: my-secret
+                    key: password
