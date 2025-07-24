@@ -3,8 +3,7 @@ kind: Deployment
 metadata:
   name: myapp
 spec:
-  replicas:
-    '[object Object]': null
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: myapp
@@ -14,22 +13,22 @@ spec:
         app: myapp
     spec:
       containers:
-        - env:
-            - name: USERNAME
-              valueFrom:
-                secretKeyRef:
-                  key: username
-                  name: my-secret
-            - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: my-secret
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          name: myapp
-          ports:
-            - containerPort: 80
-          resources:
-            limits:
-              cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}
+      - name: myapp
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+        env:
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: username
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: password
