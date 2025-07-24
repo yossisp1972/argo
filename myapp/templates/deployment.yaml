@@ -13,14 +13,14 @@ spec:
         app: myapp
     spec:
       containers:
-        - name: myapp
+      - name: myapp
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           resources:
             limits:
               memory: "{{ .Values.resources.limits.memory }}"
               cpu: "{{ .Values.resources.limits.cpu }}"
           ports:
-            - containerPort: 80
+          - containerPort: 80
           env:
             - name: USERNAME
               valueFrom:
