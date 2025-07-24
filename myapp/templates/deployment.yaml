@@ -26,7 +26,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: my-secret
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           name: myapp
           ports:
             - containerPort: 80
