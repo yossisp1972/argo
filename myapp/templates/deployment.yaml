@@ -1,9 +1,11 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp
 spec:
-  replicas: { { .Values.replicaCount } }
+  replicas:
+    '[object Object]': null
   selector:
     matchLabels:
       app: myapp
@@ -13,22 +15,22 @@ spec:
         app: myapp
     spec:
       containers:
-      - name: myapp
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        - env:
+            - name: USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: my-secret
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: my-secret
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          name: myapp
+          ports:
+            - containerPort: 80
           resources:
             limits:
-              memory: "{{ .Values.resources.limits.memory }}"
-              cpu: "{{ .Values.resources.limits.cpu }}"
-          ports:
-          - containerPort: 80
-            env:
-            - name: USERNAME
-                valueFrom:
-                  secretKeyRef:
-                    name: my-secret
-                    key: username
-            - name: PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: my-secret
-                    key: password
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
