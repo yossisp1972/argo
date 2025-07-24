@@ -1,0 +1,18 @@
+replicaCount: 2
+
+image:
+  repository: nginx
+  tag: latest
+
+resources:
+  limits:
+    memory: "128Mi"
+    cpu: "500m"
+
+service:
+  type: ClusterIP
+  port: 80
+
+secret:
+  username: myuser
+  password: mypassword
